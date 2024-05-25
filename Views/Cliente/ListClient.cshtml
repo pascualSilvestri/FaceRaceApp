@@ -1,0 +1,102 @@
+﻿@model List<FaceRaceApp.Models.ClienteModel>
+
+@{
+    ViewBag.Title = "ListClient";
+}
+
+<h2>ListClient</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Nombre</td>
+                <td>@cliente.Apellido</td>
+                <td>@cliente.DNI</td>
+                <td>@cliente.Telefono</td>
+                <td>@cliente.Correo</td>
+                <td>
+                    <!-- Botón para modificar -->
+                    <button class="btn btn-primary" onclick="showModificarModal('@cliente.Nombre','@cliente.Apellido','@cliente.DNI','@cliente.Telefono','@cliente.Correo', '@cliente.ClienteId')">Modificar</button>
+
+                    <!-- Formulario para eliminar -->
+                    @using (Html.BeginForm("Delete", "Cliente", new { id = cliente.ClienteId }, FormMethod.Post, new { @class = "d-inline" }))
+                    {
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<!-- Modal para modificar -->
+<div class="modal" id="modificarModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Encabezado del modal -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modificar Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Contenido del modal -->
+            <div class="modal-body">
+                <!-- Formulario para modificar cliente -->
+                @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post))
+                {
+                    <input type="hidden" id="ClienteId" name="ClienteId" />
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">DNI:</label>
+                        <input type="text" class="form-control" id="DNI" name="DNI" />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Telefno:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Correo:</label>
+                        <input type="text" class="form-control" id="correo" name="correo" />
+                    </div>
+                    <!-- Agrega aquí los campos restantes -->
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function showModificarModal(nombre, apellido, dni, telefono, correo, clienteId) {
+            $("#nombre").val(nombre);
+            $("#apellido").val(apellido);
+            $("#DNI").val(dni);
+            $("#telefono").val(telefono);
+            $("#correo").val(correo);
+            $("#ClienteId").val(clienteId);
+            // Llena los campos restantes
+            $("#modificarModal").modal("show");
+        }
+    </script>
+}
