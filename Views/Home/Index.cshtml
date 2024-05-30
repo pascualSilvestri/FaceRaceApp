@@ -15,17 +15,19 @@
             <p>
                 Reserve su turno para la compra y revicion de su moto.
             </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Ingresar &raquo;</a></p>
+            <p> @Html.ActionLink("Ingresar", "CreateTurno", "Turno", new { area = "" }, new { @class = "btn btn-outline-dark" })</p>
         </section>
         <section class="col-md-4" aria-labelledby="librariesTitle">
             <h2 id="librariesTitle">Turnos</h2>
             <p>Visualizar todos los turnos agendados</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Ingresar &raquo;</a></p>
+            <p>
+                @Html.ActionLink("Ingresar", "Index", "Turno", new { area = "" }, new { @class = "btn btn-outline-dark" })
+            </p>
         </section>
         <section class="col-md-4" aria-labelledby="hostingTitle">
             <h2 id="hostingTitle">turnos del dia de hoy</h2>
             <p>Mostrar la lista de turno del dia de hoy</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Ingresar &raquo;</a></p>
+            <p> @Html.ActionLink("Ingresar", "TurnoToday", "Turno", new { area = "" }, new { @class = "btn btn-outline-dark" })</p>
         </section>
     </div>
 </main>

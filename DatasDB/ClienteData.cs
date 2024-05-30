@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FaceRaceApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -65,6 +66,39 @@ namespace FaceRaceApp.DatasDB
             return clientes;
         }
 
+        public ClienteModel GetClienteByDNI(string dni)
+        {
+            ClienteModel cliente = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Clientes WHERE DNI = @DNI AND IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@DNI", dni);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            cliente = new ClienteModel
+                            {
+                                ClienteId = reader["ClienteId"].ToString(),
+                                Nombre = reader["Nombre"].ToString(),
+                                Apellido = reader["Apellido"].ToString(),
+                                DNI = reader["DNI"].ToString(),
+                                Telefono = reader["Telefono"].ToString(),
+                                Correo = reader["Correo"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return cliente;
+        }
 
 
         public bool EliminarCliente(int id)

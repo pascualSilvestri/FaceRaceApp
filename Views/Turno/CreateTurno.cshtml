@@ -1,0 +1,107 @@
+﻿@model FaceRaceApp.Models.TurnoViewModel
+
+@{
+    ViewBag.Title = "CreateTurno";
+}
+
+<h2>CreateTurno</h2>
+
+<div class="container mt-5">
+    <h2 class="text-center">@ViewBag.Title</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @using (Html.BeginForm("GetCliente", "Turno", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label for="dni" class="control-label">Buscar Cliente:</label>
+            <input type="text" id="dni" name="dni" class="form-control" placeholder="DNI del cliente" />
+            <input type="submit" value="Buscar Cliente" class="btn btn-primary" />
+        </div>
+    }
+
+    @if (Model != null && Model.ClienteId > 0)
+    {
+        <div class="form-group">
+            <label for="clienteId" class="control-label">Cliente ID:</label>
+            <input type="text" id="clienteId" name="clienteId" class="form-control" value="@Model.ClienteId" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="nombre" class="control-label">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="@Model.Nombre" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="apellido" class="control-label">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" class="form-control" value="@Model.Apellido" readonly />
+        </div>
+
+        <!-- Aquí se pueden añadir más campos del cliente si es necesario -->
+    }
+
+    @using (Html.BeginForm("Create", "Turno", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.ClienteId)
+
+        <div class="form-group">
+            <label for="mes" class="control-label">Mes:</label>
+            <select id="mes" name="mes" class="form-control" onchange="updateHorariosDisponibles()">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    <option value="@i">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dia" class="control-label">Día:</label>
+            <select id="dia" name="dia" class="form-control" onchange="updateHorariosDisponibles()">
+                @for (int i = 1; i <= 31; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hora" class="control-label">Hora:</label>
+            <select id="hora" name="hora" class="form-control">
+                <!-- Horarios disponibles se cargarán dinámicamente aquí -->
+            </select>
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Crear Turno" class="btn btn-primary" />
+        </div>
+    }
+</div>
+
+<script>
+    function updateHorariosDisponibles() {
+        var mes = document.getElementById('mes').value;
+        var dia = document.getElementById('dia').value;
+
+        $.ajax({
+            url: '@Url.Action("ObtenerHorariosDisponibles", "Turno")',
+            type: 'GET',
+            data: { mes: mes, dia: dia },
+            success: function (horarios) {
+                var select = document.getElementById('hora');
+                select.innerHTML = '';
+
+                horarios.forEach(function (horario) {
+                    var option = document.createElement('option');
+                    option.value = horario;
+                    option.text = horario;
+                    select.appendChild(option);
+                });
+            }
+        });
+    }
+</script>

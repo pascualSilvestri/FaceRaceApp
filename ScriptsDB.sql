@@ -7,3 +7,6 @@ CREATE TABLE Clientes (
     Telefono NVARCHAR(20) NOT NULL,
     Correo NVARCHAR(100) NOT NULL
 );
+
+
+
