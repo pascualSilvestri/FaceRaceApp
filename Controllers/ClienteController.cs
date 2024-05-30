@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using FaceRaceApp.Models;
 
 namespace FaceRaceApp.Controllers
 {
@@ -13,31 +14,40 @@ namespace FaceRaceApp.Controllers
         // GET: Cliente
         public ActionResult Index()
         {
-            return View();
+            ClienteData data = new ClienteData();
+            var clientes = data.GetAllClientes();
+            return View(clientes);
         }
 
         // POST: Cliente
         [HttpPost]
-        public ActionResult Index(Models.ClienteModel model)
+        public ActionResult Index(ClienteModel model)
         {
             if (ModelState.IsValid)
             {
-                // Guardar los datos en la base de datos
                 ClienteData data = new ClienteData();
                 data.InsertCliente(model);
 
-                // Redirigir a la misma acción para limpiar el formulario
+                TempData["ClienteData"] = "Cliente creado correctamente.";
+
                 return RedirectToAction("Index");
             }
 
-            // Si hay errores, volver a mostrar el formulario con los datos actuales
             return View(model);
         }
 
         // GET: Cliente/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ClienteData data = new ClienteData();
+            ClienteModel cliente = data.GetClienteById(id);
+
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cliente);
         }
 
         // GET: Cliente/Create
@@ -48,55 +58,76 @@ namespace FaceRaceApp.Controllers
 
         // POST: Cliente/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ClienteModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                ClienteData data = new ClienteData();
+                data.InsertCliente(model);
+
+                TempData["ClienteData"] = "Cliente creado correctamente.";
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(model);
         }
 
         // GET: Cliente/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ClienteData data = new ClienteData();
+            ClienteModel cliente = data.GetClienteById(id);
+
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cliente);
         }
 
         // POST: Cliente/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ClienteModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                ClienteData data = new ClienteData();
+                data.UpdateCliente(id, model);
+
+                TempData["ClienteData"] = "Cliente editado correctamente.";
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(model);
         }
 
         // GET: Cliente/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ClienteData data = new ClienteData();
+            ClienteModel cliente = data.GetClienteById(id);
+
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cliente);
         }
 
         // POST: Cliente/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                ClienteData data = new ClienteData();
+                data.DeleteCliente(id);
+
+                TempData["ClienteData"] = "Cliente eliminado correctamente.";
 
                 return RedirectToAction("Index");
             }
@@ -105,5 +136,7 @@ namespace FaceRaceApp.Controllers
                 return View();
             }
         }
+
+      
     }
 }

@@ -1,0 +1,39 @@
+﻿@model FaceRaceApp.Models.ClienteModel
+@{
+    ViewBag.Title = "Crear Cliente";
+}
+
+<style>
+    /* tu CSS existente */
+</style>
+
+<main>
+    <h2>Crear Cliente</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <form>
+            <label for="Nombre">Nombre</label>
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @type = "text", @placeholder = "Nombre" })
+            @Html.ValidationMessageFor(model => model.Nombre)
+
+            <label for="Apellido">Apellido</label>
+            @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control", @type = "text", @placeholder = "Apellido" })
+            @Html.ValidationMessageFor(model => model.Apellido)
+
+            <label for="DNI">DNI</label>
+            @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @type = "text", @placeholder = "DNI" })
+            @Html.ValidationMessageFor(model => model.DNI)
+
+            <label for="Telefono">Teléfono</label>
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @type = "tel", @placeholder = "Teléfono" })
+            @Html.ValidationMessageFor(model => model.Telefono)
+
+            <label for="Correo">Correo</label>
+            @Html.TextBoxFor(model => model.Correo, new { @class = "form-control", @type = "email", @placeholder = "Correo" })
+            @Html.ValidationMessageFor(model => model.Correo)
+
+            <button type="submit">Crear Cliente</button>
+        </form>
+    }
+</main>
