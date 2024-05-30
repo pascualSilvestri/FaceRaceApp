@@ -16,9 +16,102 @@ namespace FaceRaceApp.Controllers
         private string connectionString = ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
 
         // GET: Turno
-        public ActionResult Index()
+        public ActionResult Index(string dni, DateTime? fecha)
         {
-            return View();
+            List<TurnoViewModel> turnos = GetTurnos(dni, fecha);
+            return View(turnos);
+        }
+
+        private List<TurnoViewModel> GetTurnosHoy()
+        {
+            List<TurnoViewModel> turnos = new List<TurnoViewModel>();
+            DateTime fechaHoy = DateTime.Today;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT c.Nombre, c.Apellido, t.Fecha, t.Hora
+                         FROM Turnos t
+                         INNER JOIN Clientes c ON t.ClienteId = c.ClienteId
+                         WHERE CAST(t.Fecha AS DATE) = @FechaHoy";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FechaHoy", fechaHoy);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            turnos.Add(new TurnoViewModel
+                            {
+                                ClienteId = GetClienteId(reader.GetString(0), reader.GetString(1)),
+                                Nombre = reader.GetString(0),
+                                Apellido = reader.GetString(1),
+                                Mes = reader.GetDateTime(2).Month,
+                                Dia = reader.GetDateTime(2).Day,
+                                Hora = reader.GetTimeSpan(3).ToString(@"hh\:mm")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return turnos;
+        }
+
+        private List<TurnoViewModel> GetTurnos(string dni, DateTime? fecha)
+        {
+            List<TurnoViewModel> turnos = new List<TurnoViewModel>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT c.Nombre, c.Apellido, t.Fecha, t.Hora
+                         FROM Turnos t
+                         INNER JOIN Clientes c ON t.ClienteId = c.ClienteId
+                         WHERE (@DNI IS NULL OR c.DNI = @DNI)
+                           AND (@Fecha IS NULL OR CAST(t.Fecha AS DATE) = @Fecha)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    if (!string.IsNullOrEmpty(dni))
+                        command.Parameters.AddWithValue("@DNI", dni);
+                    else
+                        command.Parameters.AddWithValue("@DNI", DBNull.Value);
+
+                    if (fecha.HasValue)
+                        command.Parameters.AddWithValue("@Fecha", fecha.Value.Date);
+                    else
+                        command.Parameters.AddWithValue("@Fecha", DBNull.Value);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            turnos.Add(new TurnoViewModel
+                            {
+                                ClienteId = GetClienteId(reader.GetString(0), reader.GetString(1)),
+                                Nombre = reader.GetString(0),
+                                Apellido = reader.GetString(1),
+                                Mes = reader.GetDateTime(2).Month,
+                                Dia = reader.GetDateTime(2).Day,
+                                Hora = reader.GetTimeSpan(3).ToString(@"hh\:mm")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return turnos;
+        }
+
+        private int GetClienteId(string nombre, string apellido)
+        {
+            // Lógica para obtener el ClienteId a partir del nombre y apellido
+            // Puedes simplemente retornar un valor constante por ahora
+            return 1;
         }
 
         // GET: Turno/CreateTurno
@@ -84,7 +177,8 @@ namespace FaceRaceApp.Controllers
         // GET: Turno/TurnoToday
         public ActionResult TurnoToday()
         {
-            return View();
+            List<TurnoViewModel> turnosHoy = GetTurnosHoy();
+            return View(turnosHoy);
         }
 
         [HttpPost]

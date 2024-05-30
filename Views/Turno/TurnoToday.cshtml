@@ -1,7 +1,27 @@
-﻿
+﻿@model IEnumerable<FaceRaceApp.Models.TurnoViewModel>
+
 @{
-    ViewBag.Title = "TurnoToday";
+    ViewBag.Title = "Turnos de Hoy";
 }
 
-<h2>TurnoToday</h2>
+<h2 class="text-center mb-4">Turnos de Hoy</h2>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Hora</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var turno in Model)
+        {
+            <tr>
+                <td>@turno.Nombre</td>
+                <td>@turno.Apellido</td>
+                <td>@turno.Hora</td>
+            </tr>
+        }
+    </tbody>
+</table>
