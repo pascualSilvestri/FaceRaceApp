@@ -29,7 +29,7 @@ namespace FaceRaceApp.Controllers
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"SELECT c.Nombre, c.Apellido, t.Fecha, t.Hora
+                string query = @"SELECT t.TurnoId, c.Nombre, c.Apellido, t.Fecha, t.Hora
                          FROM Turnos t
                          INNER JOIN Clientes c ON t.ClienteId = c.ClienteId
                          WHERE CAST(t.Fecha AS DATE) = @FechaHoy";
@@ -45,12 +45,13 @@ namespace FaceRaceApp.Controllers
                         {
                             turnos.Add(new TurnoViewModel
                             {
-                                ClienteId = GetClienteId(reader.GetString(0), reader.GetString(1)),
-                                Nombre = reader.GetString(0),
-                                Apellido = reader.GetString(1),
-                                Mes = reader.GetDateTime(2).Month,
-                                Dia = reader.GetDateTime(2).Day,
-                                Hora = reader.GetTimeSpan(3).ToString(@"hh\:mm")
+                                TurnoId = reader.GetInt32(0),
+                                ClienteId = GetClienteId(reader.GetString(1), reader.GetString(2)),
+                                Nombre = reader.GetString(1),
+                                Apellido = reader.GetString(2),
+                                Mes = reader.GetDateTime(3).Month,
+                                Dia = reader.GetDateTime(3).Day,
+                                Hora = reader.GetTimeSpan(4).ToString(@"hh\:mm")
                             });
                         }
                     }
@@ -66,7 +67,7 @@ namespace FaceRaceApp.Controllers
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"SELECT c.Nombre, c.Apellido, t.Fecha, t.Hora
+                string query = @"SELECT t.TurnoId, c.Nombre, c.Apellido, t.Fecha, t.Hora
                          FROM Turnos t
                          INNER JOIN Clientes c ON t.ClienteId = c.ClienteId
                          WHERE (@DNI IS NULL OR c.DNI = @DNI)
@@ -92,12 +93,13 @@ namespace FaceRaceApp.Controllers
                         {
                             turnos.Add(new TurnoViewModel
                             {
-                                ClienteId = GetClienteId(reader.GetString(0), reader.GetString(1)),
-                                Nombre = reader.GetString(0),
-                                Apellido = reader.GetString(1),
-                                Mes = reader.GetDateTime(2).Month,
-                                Dia = reader.GetDateTime(2).Day,
-                                Hora = reader.GetTimeSpan(3).ToString(@"hh\:mm")
+                                TurnoId = reader.GetInt32(0),
+                                ClienteId = GetClienteId(reader.GetString(1), reader.GetString(2)),
+                                Nombre = reader.GetString(1),
+                                Apellido = reader.GetString(2),
+                                Mes = reader.GetDateTime(3).Month,
+                                Dia = reader.GetDateTime(3).Day,
+                                Hora = reader.GetTimeSpan(4).ToString(@"hh\:mm")
                             });
                         }
                     }
@@ -166,7 +168,7 @@ namespace FaceRaceApp.Controllers
                 // Cliente no encontrado, mostrar mensaje de error
                 ViewBag.ErrorMessage = "Cliente no encontrado";
                 /*return View("CreateTurno", new TurnoViewModel());*/
-                return RedirectToAction("Index","Cliente");
+                return RedirectToAction("Index", "Cliente");
             }
         }
 
@@ -221,6 +223,46 @@ namespace FaceRaceApp.Controllers
             return Json(horariosDisponibles, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult ObtenerHorariosDisponibles(int mes, int dia, int turnoId)
+        {
+            DateTime fecha = new DateTime(DateTime.Now.Year, mes, dia);
+            var horariosDisponibles = GetAvailableHours(fecha, turnoId);
+            return Json(horariosDisponibles, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<string> GetAvailableHours(DateTime fecha, int turnoId)
+        {
+            List<string> horariosDisponibles = new List<string>();
+            for (int i = 9; i <= 17; i++)
+            {
+                horariosDisponibles.Add(i.ToString("D2") + ":00");
+            }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Hora FROM Turnos WHERE Fecha = @Fecha AND TurnoId != @TurnoId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Fecha", fecha);
+                    command.Parameters.AddWithValue("@TurnoId", turnoId);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string hora = reader.GetTimeSpan(0).ToString(@"hh\:mm");
+                            horariosDisponibles.Remove(hora);
+                        }
+                    }
+                }
+            }
+
+            return horariosDisponibles;
+        }
+
 
         private List<string> GetAvailableHours(DateTime fecha)
         {
@@ -253,7 +295,110 @@ namespace FaceRaceApp.Controllers
             return horariosDisponibles;
         }
 
+        // GET: Turno/ModificarTurno/id
+        public ActionResult ModificarTurno(int id)
+        {
+            // Obtener los datos del turno por su ID
+            TurnoViewModel turno = GetTurnoById(id);
 
+            if (turno != null)
+            {
+                return View(turno);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        // POST: Turno/ModificarTurno
+        [HttpPost]
+        public ActionResult ModificarTurno(TurnoViewModel turno)
+        {
+            if (ModelState.IsValid)
+            {
+                // Actualizar el turno en la base de datos
+                bool resultado = ActualizarTurno(turno);
+
+                if (resultado)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    // Manejar el error
+                    return View(turno);
+                }
+            }
+
+            return View(turno);
+        }
+
+
+        private TurnoViewModel GetTurnoById(int id)
+        {
+            // Implementar la lógica para obtener los datos del turno por su ID
+            // y llenar un objeto TurnoViewModel con esos datos
+            return new TurnoViewModel
+            {
+                TurnoId = id,
+                ClienteId = 1,
+                Nombre = "Nombre de Prueba",
+                Apellido = "Apellido de Prueba",
+                Mes = 6,
+                Dia = 15,
+                Hora = "10:00"
+            };
+        }
+
+        private bool ActualizarTurno(TurnoViewModel turno)
+        {
+            // Implementar la lógica para actualizar el turno en la base de datos
+            return true;
+        }
+
+
+
+        [HttpPost]
+        public ActionResult EliminarTurno(int turnoId)
+        {
+            try
+            {
+                Debug.WriteLine("Received TurnoId: " + turnoId);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "DELETE FROM Turnos WHERE TurnoId = @TurnoId";
+                    Debug.WriteLine("Conexión a la base de datos establecida.");
+                    Debug.WriteLine("Query: " + query);
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@TurnoId", turnoId);
+                        Debug.WriteLine("TurnoId Parameter: " + turnoId);
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Debug.WriteLine("Rows Affected: " + rowsAffected);
+
+                        if (rowsAffected > 0)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            // Si no se afectaron filas, el turno no se encontró
+                            Debug.WriteLine("El turno no fue encontrado.");
+                            return Json(new { success = false, message = "El turno no fue encontrado." });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
 
     }
 }

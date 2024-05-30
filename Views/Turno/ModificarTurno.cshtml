@@ -1,0 +1,87 @@
+﻿@model FaceRaceApp.Models.TurnoViewModel
+
+@{
+    ViewBag.Title = "Modificar Turno";
+}
+
+<h2>Modificar Turno</h2>
+
+@using (Html.BeginForm("ModificarTurno", "Turno", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.TurnoId)
+    @Html.HiddenFor(model => model.ClienteId)
+
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" value="@Model.Nombre" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" class="form-control" value="@Model.Apellido" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="mes">Mes:</label>
+        <select id="mes" name="Mes" class="form-control" onchange="updateHorariosDisponibles()">
+            @for (int i = 1; i <= 12; i++)
+            {
+                <option value="@i" @(Model.Mes == i ? "selected" : "")>@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="dia">Día:</label>
+        <select id="dia" name="Dia" class="form-control" onchange="updateHorariosDisponibles()">
+            @for (int i = 1; i <= 31; i++)
+            {
+                <option value="@i" @(Model.Dia == i ? "selected" : "")>@i</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="hora">Hora:</label>
+        <select id="hora" name="Hora" class="form-control">
+            <!-- Horarios disponibles se cargarán dinámicamente aquí -->
+        </select>
+    </div>
+
+    <div class="form-group text-center">
+        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+    </div>
+}
+
+<script>
+    var turnoIdActual = @Model.TurnoId;
+
+    function updateHorariosDisponibles() {
+        var mes = document.getElementById('mes').value;
+        var dia = document.getElementById('dia').value;
+
+        $.ajax({
+            url: '@Url.Action("ObtenerHorariosDisponibles", "Turno")',
+            type: 'GET',
+            data: { mes: mes, dia: dia, turnoId: turnoIdActual },
+            success: function (horarios) {
+                var select = document.getElementById('hora');
+                select.innerHTML = '';
+                horarios.forEach(function (horario) {
+                    var option = document.createElement('option');
+                    option.value = horario;
+                    option.text = horario;
+                    if (horario === '@Model.Hora') {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+            }
+        });
+    }
+
+    // Cargar los horarios disponibles al cargar la página
+    window.onload = function() {
+        updateHorariosDisponibles();
+    }
+</script>

@@ -3,32 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\turno\\turnotoday.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\turno\\turnotoday.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\models\\turnomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:models\\turnomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\turno\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\turno\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\models\\turnomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:models\\turnomodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\models\\clientemodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:models\\clientemodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\datasdb\\clientedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:datasdb\\clientedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\cliente\\listclient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\cliente\\listclient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\turno\\createturno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\turno\\createturno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|c:\\users\\silve\\onedrive\\escritorio\\faceraceapp\\views\\turno\\modificarturno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{72B8811E-67CB-4DD9-8665-404DD1F36864}|FaceRaceApp.csproj|solutionrelative:views\\turno\\modificarturno.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,97 +46,124 @@
       "DocumentGroups": [
         {
           "DockedHeight": 290,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TurnoToday.cshtml",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\TurnoToday.cshtml",
-              "RelativeDocumentMoniker": "Views\\Turno\\TurnoToday.cshtml",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\TurnoToday.cshtml",
-              "RelativeToolTip": "Views\\Turno\\TurnoToday.cshtml",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAowBoAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-30T19:31:35.006Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Turno\\Index.cshtml",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\Index.cshtml",
-              "RelativeToolTip": "Views\\Turno\\Index.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAIwCYAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-30T18:54:01.538Z",
+              "DocumentIndex": 3,
+              "Title": "ClienteController.cs",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\ClienteController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClienteController.cs",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\ClienteController.cs",
+              "RelativeToolTip": "Controllers\\ClienteController.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T22:15:42.153Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "ClienteModels.cs",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\ClienteModels.cs",
-              "RelativeDocumentMoniker": "Models\\ClienteModels.cs",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\ClienteModels.cs",
-              "RelativeToolTip": "Models\\ClienteModels.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T18:55:02.238Z",
+              "Title": "ListClient.cshtml",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Cliente\\ListClient.cshtml",
+              "RelativeDocumentMoniker": "Views\\Cliente\\ListClient.cshtml",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Cliente\\ListClient.cshtml",
+              "RelativeToolTip": "Views\\Cliente\\ListClient.cshtml",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAIwDYAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T21:35:41.995Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TurnoModels.cs",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\TurnoModels.cs",
-              "RelativeDocumentMoniker": "Models\\TurnoModels.cs",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\TurnoModels.cs",
-              "RelativeToolTip": "Models\\TurnoModels.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T17:23:32.352Z",
+              "DocumentIndex": 7,
+              "Title": "CreateTurno.cshtml",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\CreateTurno.cshtml",
+              "RelativeDocumentMoniker": "Views\\Turno\\CreateTurno.cshtml",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\CreateTurno.cshtml",
+              "RelativeToolTip": "Views\\Turno\\CreateTurno.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T21:31:42.775Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "App_Start\\RouteConfig.cs",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T12:02:23.117Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TurnoController.cs",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\TurnoController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TurnoController.cs",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\TurnoController.cs",
-              "RelativeToolTip": "Controllers\\TurnoController.cs",
-              "ViewState": "AQIAAKUAAAAAAAAAAAAAALUAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T13:11:55.795Z",
+              "DocumentIndex": 8,
+              "Title": "ModificarTurno.cshtml",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\ModificarTurno.cshtml",
+              "RelativeDocumentMoniker": "Views\\Turno\\ModificarTurno.cshtml",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\ModificarTurno.cshtml",
+              "RelativeToolTip": "Views\\Turno\\ModificarTurno.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T20:10:37.634Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ClienteData.cs",
-              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\DatasDB\\ClienteData.cs",
-              "RelativeDocumentMoniker": "DatasDB\\ClienteData.cs",
-              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\DatasDB\\ClienteData.cs",
-              "RelativeToolTip": "DatasDB\\ClienteData.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAIAAAA",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAIwFoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T20:11:24.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClienteModels.cs",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\ClienteModels.cs",
+              "RelativeDocumentMoniker": "Models\\ClienteModels.cs",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\ClienteModels.cs",
+              "RelativeToolTip": "Models\\ClienteModels.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T19:37:20.291Z"
+              "WhenOpened": "2024-05-30T19:44:53.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TurnoModels.cs",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\TurnoModels.cs",
+              "RelativeDocumentMoniker": "Models\\TurnoModels.cs",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Models\\TurnoModels.cs",
+              "RelativeToolTip": "Models\\TurnoModels.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T19:44:49.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TurnoController.cs",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\TurnoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TurnoController.cs",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Controllers\\TurnoController.cs",
+              "RelativeToolTip": "Controllers\\TurnoController.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAAAFwAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T19:43:14.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Turno\\Index.cshtml",
+              "ToolTip": "C:\\Users\\silve\\OneDrive\\Escritorio\\FaceRaceApp\\Views\\Turno\\Index.cshtml",
+              "RelativeToolTip": "Views\\Turno\\Index.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAC0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-30T19:41:06.562Z",
+              "EditorCaption": ""
             }
           ]
         }

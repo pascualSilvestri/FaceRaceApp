@@ -10,3 +10,12 @@ CREATE TABLE Clientes (
 
 
 
+CREATE TABLE Turnos (
+    TurnoId INT IDENTITY(1,1) PRIMARY KEY,
+    ClienteId INT NOT NULL,
+    Fecha DATE NOT NULL,
+    Hora TIME NOT NULL,
+    FOREIGN KEY (ClienteId) REFERENCES Clientes(ClienteId),
+    CONSTRAINT UC_Turno UNIQUE (Fecha, Hora) -- Asegurar que no se dupliquen turnos en la misma fecha y hora
+);
+
