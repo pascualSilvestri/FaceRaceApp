@@ -223,15 +223,15 @@ namespace FaceRaceApp.Controllers
             return Json(horariosDisponibles, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
+      /*  [HttpGet]
         public JsonResult ObtenerHorariosDisponibles(int mes, int dia, int turnoId)
         {
             DateTime fecha = new DateTime(DateTime.Now.Year, mes, dia);
             var horariosDisponibles = GetAvailableHours(fecha, turnoId);
             return Json(horariosDisponibles, JsonRequestBehavior.AllowGet);
-        }
+        }*/
 
-        private List<string> GetAvailableHours(DateTime fecha, int turnoId)
+        /*private List<string> GetAvailableHours(DateTime fecha, int turnoId)
         {
             List<string> horariosDisponibles = new List<string>();
             for (int i = 9; i <= 17; i++)
@@ -262,7 +262,7 @@ namespace FaceRaceApp.Controllers
 
             return horariosDisponibles;
         }
-
+*/
 
         private List<string> GetAvailableHours(DateTime fecha)
         {
@@ -296,10 +296,10 @@ namespace FaceRaceApp.Controllers
         }
 
         // GET: Turno/ModificarTurno/id
-        public ActionResult ModificarTurno(int id)
+        public ActionResult ModificarTurno(int turnoId)
         {
             // Obtener los datos del turno por su ID
-            TurnoViewModel turno = GetTurnoById(id);
+            TurnoViewModel turno = GetTurnoById(turnoId);
 
             if (turno != null)
             {

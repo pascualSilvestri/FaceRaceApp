@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-}
+
 
 <table class="table table-striped">
     <thead>
@@ -51,7 +51,7 @@
                 <td>@turno.Dia/@turno.Mes/@DateTime.Now.Year</td>
                 <td>@turno.Hora</td>
                 <td>
-                    @Html.ActionLink("Modificar", "ModificarTurno", new { id = turno.TurnoId }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Modificar", "ModificarTurno", new { turnoId = turno.TurnoId }, new { @class = "btn btn-primary btn-sm" })
                     <!-- Botón para eliminar -->
                     <button type="button" class="btn btn-danger btn-sm" onclick="showEliminarModal('@turno.TurnoId')">Eliminar</button>
                 </td>
