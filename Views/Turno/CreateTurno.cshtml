@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="dni" class="control-label">Buscar Cliente:</label>
             <input type="text" id="dni" name="dni" class="form-control" placeholder="DNI del cliente" />
-            <input type="submit" value="Buscar Cliente" class="btn btn-primary" />
+            <input type="submit" value="Buscar Cliente" class="btn btn-primary mt-3" />
         </div>
     }
 
@@ -58,29 +58,36 @@
 
         <div class="form-group">
             <label for="mes" class="control-label">Mes:</label>
-            <select id="mes" name="mes" class="form-control" onchange="updateHorariosDisponibles()">
-                @for (int i = 1; i <= 12; i++)
-                {
-                    <option value="@i">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
-                }
-            </select>
+                <div class="input-group">
+                    <select id="mes" name="mes" class="input-group-append p-2 w-25" onchange="updateHorariosDisponibles()">
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <option value="@i">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                        }
+                    </select>                
+            </div>
         </div>
 
         <div class="form-group">
             <label for="dia" class="control-label">Día:</label>
-            <select id="dia" name="dia" class="form-control" onchange="updateHorariosDisponibles()">
-                @for (int i = 1; i <= 31; i++)
-                {
-                    <option value="@i">@i</option>
-                }
-            </select>
+            <div class="input-group">
+                <select id="dia" name="dia" class="input-group-append  p-2 w-25" onchange="updateHorariosDisponibles()">
+                    @for (int i = 1; i <= 31; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                
+            </div>
         </div>
 
         <div class="form-group">
             <label for="hora" class="control-label">Hora:</label>
-            <select id="hora" name="hora" class="form-control">
-                <!-- Horarios disponibles se cargarán dinámicamente aquí -->
-            </select>
+            <div class="input-group">
+                <select id="hora" name="hora" class="input-group-append  p-2 w-25">
+                    <!-- Horarios disponibles se cargarán dinámicamente aquí -->
+                </select>
+            </div>
         </div>
 
         <div class="form-group text-center">
@@ -88,6 +95,23 @@
         </div>
     }
 </div>
+
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<!-- FontAwesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+<!-- CSS -->
+<style>
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5em; /* Ajusta este valor según sea necesario */
+    }
+</style>
 
 <script>
     function updateHorariosDisponibles() {
