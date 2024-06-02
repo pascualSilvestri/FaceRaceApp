@@ -5,10 +5,14 @@ CREATE TABLE Clientes (
     Apellido NVARCHAR(50) NOT NULL,
     DNI NVARCHAR(20) NOT NULL,
     Telefono NVARCHAR(20) NOT NULL,
-    Correo NVARCHAR(100) NOT NULL
+    Correo NVARCHAR(100) NOT NULL,
+    IsDeleted BIT NOT NULL DEFAULT 0 -- Boolean field to mark as deleted
 );
 
-
+/*
+ALTER TABLE Clientes
+ADD IsDeleted BIT NOT NULL DEFAULT 0;
+*/
 
 CREATE TABLE Turnos (
     TurnoId INT IDENTITY(1,1) PRIMARY KEY,
