@@ -205,6 +205,7 @@ namespace FaceRaceApp.Controllers
                     }
                 }
 
+                TempData["SuccessMessage"] = "El turno ha sido creado exitosamente.";
                 return RedirectToAction("CreateTurno");
             }
             catch (Exception ex)
@@ -214,6 +215,37 @@ namespace FaceRaceApp.Controllers
             }
         }
 
+        /* [HttpPost]
+         public ActionResult Create(TurnoViewModel model)
+         {
+             try
+             {
+                 DateTime fecha = new DateTime(DateTime.Now.Year, model.Mes, model.Dia);
+                 TimeSpan horaTurno = TimeSpan.Parse(model.Hora);
+
+                 using (SqlConnection connection = new SqlConnection(connectionString))
+                 {
+                     string query = "INSERT INTO Turnos (ClienteId, Fecha, Hora) VALUES (@ClienteId, @Fecha, @Hora)";
+
+                     using (SqlCommand command = new SqlCommand(query, connection))
+                     {
+                         command.Parameters.AddWithValue("@ClienteId", model.ClienteId);
+                         command.Parameters.AddWithValue("@Fecha", fecha);
+                         command.Parameters.AddWithValue("@Hora", horaTurno);
+                         connection.Open();
+                         command.ExecuteNonQuery();
+                     }
+                 }
+
+                 return RedirectToAction("CreateTurno");
+             }
+             catch (Exception ex)
+             {
+                 Debug.WriteLine(ex.Message);
+                 return View("Error");
+             }
+         }
+ */
 
         [HttpGet]
         public JsonResult ObtenerHorariosDisponibles(int mes, int dia)

@@ -9,6 +9,13 @@
 <div class="container mt-5">
     <h2 class="text-center">@ViewBag.Title</h2>
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
     @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
     {
         <div class="alert alert-danger">

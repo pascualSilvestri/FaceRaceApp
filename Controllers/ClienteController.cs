@@ -1,5 +1,6 @@
 ﻿using FaceRaceApp.DatasDB;
 using FaceRaceApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -21,6 +22,13 @@ namespace FaceRaceApp.Controllers
             {
                 ClienteData data = new ClienteData();
                 data.InsertCliente(model);
+
+                // Almacenar el mensaje de éxito en TempData
+                TempData["SuccessMessage"] = "Cliente creado correctamente.";
+
+                // Almacenar los datos del cliente en TempData para mostrar en la vista
+                TempData["ClienteData"] = $"Nombre: {model.Nombre}, Apellido: {model.Apellido}, DNI: {model.DNI}, Teléfono: {model.Telefono}, Correo: {model.Correo}";
+
                 return RedirectToAction("Index");
             }
 
@@ -58,11 +66,23 @@ namespace FaceRaceApp.Controllers
                 return RedirectToAction("ListClient");
             }
 
-            return RedirectToAction("ListClient"); ;
+            return RedirectToAction("ListClient");
         }
 
-
-
-
+        // POST: Cliente/EliminarCliente
+        [HttpPost]
+        public ActionResult EliminarCliente(int clienteId)
+        {
+            try
+            {
+                ClienteData data = new ClienteData();
+                data.EliminarCliente(clienteId);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

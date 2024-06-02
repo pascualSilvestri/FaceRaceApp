@@ -30,17 +30,13 @@
                     <!-- Botón para modificar -->
                     <button class="btn btn-primary" onclick="showModificarModal('@cliente.Nombre','@cliente.Apellido','@cliente.DNI','@cliente.Telefono','@cliente.Correo', '@cliente.ClienteId')">Modificar</button>
 
-                    <!-- Formulario para eliminar -->
-                    @using (Html.BeginForm("Delete", "Cliente", new { id = cliente.ClienteId }, FormMethod.Post, new { @class = "d-inline" }))
-                    {
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    }
+                    <!-- Botón para eliminar -->
+                    <button class="btn btn-danger" onclick="showEliminarModal('@cliente.ClienteId')">Eliminar</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 
 <!-- Modal para modificar -->
 <div class="modal" id="modificarModal">
@@ -71,7 +67,7 @@
                         <input type="text" class="form-control" id="DNI" name="DNI" />
                     </div>
                     <div class="form-group">
-                        <label for="apellido">Telefno:</label>
+                        <label for="apellido">Teléfono:</label>
                         <input type="text" class="form-control" id="telefono" name="telefono" />
                     </div>
                     <div class="form-group">
@@ -86,8 +82,31 @@
     </div>
 </div>
 
+<!-- Modal para confirmar eliminación de cliente -->
+<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarModalLabel">Eliminar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este cliente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarEliminacion">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts {
     <script>
+        var clienteIdAEliminar = null;
+
         function showModificarModal(nombre, apellido, dni, telefono, correo, clienteId) {
             $("#nombre").val(nombre);
             $("#apellido").val(apellido);
@@ -95,8 +114,33 @@
             $("#telefono").val(telefono);
             $("#correo").val(correo);
             $("#ClienteId").val(clienteId);
-            // Llena los campos restantes
             $("#modificarModal").modal("show");
         }
+
+        function showEliminarModal(clienteId) {
+            clienteIdAEliminar = clienteId;
+            $('#eliminarModal').modal('show');
+        }
+
+        $('#confirmarEliminacion').click(function () {
+            if (clienteIdAEliminar !== null) {
+                $.ajax({
+                    url: '@Url.Action("EliminarCliente", "Cliente")',
+                    type: 'POST',
+                    data: { clienteId: clienteIdAEliminar },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error: ' + (response.message || 'Ocurrió un error al eliminar el cliente.'));
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Ocurrió un error en el servidor.');
+                    }
+                });
+            }
+            $('#eliminarModal').modal('hide');
+        });
     </script>
 }
