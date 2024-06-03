@@ -1,6 +1,7 @@
-﻿@model IEnumerable<FaceRaceApp.Models.ClienteModel>
+﻿@model FaceRaceApp.Models.ClienteModel
+
 @{
-    ViewBag.Title = "Clientes";
+    ViewBag.Title = "Crear Cliente";
 }
 
 <style>
@@ -69,45 +70,42 @@
     }
 </style>
 
-
 <main>
-    <h2>Clientes</h2>
+    <h2>Crear Cliente</h2>
+    @using (Html.BeginForm())
+    {
+        <form>
+            <label for="Nombre">Nombre</label>
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @type = "text", @placeholder = "Nombre" })
 
-    @if (TempData["ClienteData"] != null)
+            <label for="Apellido">Apellido</label>
+            @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control", @type = "text", @placeholder = "Apellido" })
+
+            <label for="DNI">DNI</label>
+            @Html.TextBoxFor(model => model.DNI, new { @class = "form-control", @type = "text", @placeholder = "DNI" })
+
+            <label for="Telefono">Teléfono</label>
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @type = "tel", @placeholder = "Teléfono" })
+
+            <label for="Correo">Correo</label>
+            @Html.TextBoxFor(model => model.Correo, new { @class = "form-control", @type = "email", @placeholder = "Correo" })
+
+            <button type="submit">Crear Cliente</button>
+        </form>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success">
-            @TempData["ClienteData"]
+            @TempData["SuccessMessage"]
         </div>
     }
 
-    <a href="@Url.Action("Create", "Cliente")" class="btn btn-primary">Crear Nuevo Cliente</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cliente in Model)
-            {
-                <tr>
-                    <td>@cliente.Nombre</td>
-                    <td>@cliente.Apellido</td>
-                    <td>@cliente.DNI</td>
-                    <td>@cliente.Telefono</td>
-                    <td>@cliente.Correo</td>
-                    <td>
-                        <a href="@Url.Action("Edit", "Cliente", new { id = cliente.Id })" class="btn btn-warning">Editar</a>
-                        <a href="@Url.Action("Delete", "Cliente", new { id = cliente.Id })" class="btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @if (TempData["ClienteData"] != null)
+    {
+        <div class="cliente-data">
+            <strong>Datos del Cliente:</strong><br />
+            @TempData["ClienteData"]
+        </div>
+    }
 </main>

@@ -1,11 +1,8 @@
 ﻿using FaceRaceApp.DatasDB;
+using FaceRaceApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
-using FaceRaceApp.Models;
 
 namespace FaceRaceApp.Controllers
 {
@@ -14,9 +11,7 @@ namespace FaceRaceApp.Controllers
         // GET: Cliente
         public ActionResult Index()
         {
-            ClienteData data = new ClienteData();
-            var clientes = data.GetAllClientes();
-            return View(clientes);
+            return View();
         }
 
         // POST: Cliente
@@ -28,7 +23,11 @@ namespace FaceRaceApp.Controllers
                 ClienteData data = new ClienteData();
                 data.InsertCliente(model);
 
-                TempData["ClienteData"] = "Cliente creado correctamente.";
+                // Almacenar el mensaje de éxito en TempData
+                TempData["SuccessMessage"] = "Cliente creado correctamente.";
+
+                // Almacenar los datos del cliente en TempData para mostrar en la vista
+                TempData["ClienteData"] = $"Nombre: {model.Nombre}, Apellido: {model.Apellido}, DNI: {model.DNI}, Teléfono: {model.Telefono}, Correo: {model.Correo}";
 
                 return RedirectToAction("Index");
             }
@@ -36,107 +35,54 @@ namespace FaceRaceApp.Controllers
             return View(model);
         }
 
-        // GET: Cliente/Details/5
-        public ActionResult Details(int id)
+        // GET: Cliente/ListClient
+        [HttpGet]
+        public ActionResult ListClient()
         {
             ClienteData data = new ClienteData();
-            ClienteModel cliente = data.GetClienteById(id);
-
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(cliente);
+            List<ClienteModel> list = data.GetAllClientes();
+            return View(list);
         }
 
-        // GET: Cliente/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Cliente/Create
+        // POST: Cliente/Delete/{id}
         [HttpPost]
-        public ActionResult Create(ClienteModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                ClienteData data = new ClienteData();
-                data.InsertCliente(model);
-
-                TempData["ClienteData"] = "Cliente creado correctamente.";
-
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-        // GET: Cliente/Edit/5
-        public ActionResult Edit(int id)
-        {
-            ClienteData data = new ClienteData();
-            ClienteModel cliente = data.GetClienteById(id);
-
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(cliente);
-        }
-
-        // POST: Cliente/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, ClienteModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                ClienteData data = new ClienteData();
-                data.UpdateCliente(id, model);
-
-                TempData["ClienteData"] = "Cliente editado correctamente.";
-
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-        // GET: Cliente/Delete/5
         public ActionResult Delete(int id)
         {
             ClienteData data = new ClienteData();
-            ClienteModel cliente = data.GetClienteById(id);
-
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(cliente);
+            data.EliminarCliente(id);
+            return RedirectToAction("ListClient");
         }
 
-        // POST: Cliente/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Modificar(ClienteModel model)
+        {
+            // Imprime el modelo en la consola de depuración
+            System.Diagnostics.Debug.WriteLine(model.ClienteId);
+
+            if (ModelState.IsValid)
+            {
+                ClienteData data = new ClienteData();
+                data.ActualizarCliente(model);
+                return RedirectToAction("ListClient");
+            }
+
+            return RedirectToAction("ListClient");
+        }
+
+        // POST: Cliente/EliminarCliente
+        [HttpPost]
+        public ActionResult EliminarCliente(int clienteId)
         {
             try
             {
                 ClienteData data = new ClienteData();
-                data.DeleteCliente(id);
-
-                TempData["ClienteData"] = "Cliente eliminado correctamente.";
-
-                return RedirectToAction("Index");
+                data.EliminarCliente(clienteId);
+                return Json(new { success = true });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, message = ex.Message });
             }
         }
-
-      
     }
 }

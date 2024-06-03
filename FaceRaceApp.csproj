@@ -122,10 +122,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TurnoController.cs" />
     <Compile Include="DatasDB\ClienteData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TurnoModels.cs" />
     <Compile Include="Models\ClienteModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,9 +181,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
-    <Content Include="Views\Cliente\Create.cshtml" />
-    <Content Include="Views\Cliente\Edit.cshtml" />
-    <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\Cliente\ListClient.cshtml" />
+    <Content Include="Views\Turno\Index.cshtml" />
+    <Content Include="Views\Turno\CreateTurno.cshtml" />
+    <Content Include="Views\Turno\TurnoToday.cshtml" />
+    <Content Include="Views\Turno\ModificarTurno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

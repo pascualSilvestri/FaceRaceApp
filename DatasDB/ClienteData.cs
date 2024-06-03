@@ -1,54 +1,150 @@
-﻿using System;
+﻿using FaceRaceApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using FaceRaceApp.Models;
-
 
 namespace FaceRaceApp.DatasDB
 {
     public class ClienteData
     {
-        private static List<ClienteModel> clientes = new List<ClienteModel>();
+        private string connectionString = ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
 
-        public void InsertCliente(ClienteModel model)
+        public void InsertCliente(Models.ClienteModel cliente)
         {
-            model.Id = clientes.Count > 0 ? clientes.Max(c => c.Id) + 1 : 1;
-            clientes.Add(model);
-        }
-
-        public ClienteModel GetClienteById(int id)
-        {
-            return clientes.FirstOrDefault(c => c.Id == id);
-        }
-
-        public void UpdateCliente(int id, ClienteModel updatedCliente)
-        {
-            var cliente = clientes.FirstOrDefault(c => c.Id == id);
-            if (cliente != null)
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                cliente.Nombre = updatedCliente.Nombre;
-                cliente.Apellido = updatedCliente.Apellido;
-                cliente.DNI = updatedCliente.DNI;
-                cliente.Telefono = updatedCliente.Telefono;
-                cliente.Correo = updatedCliente.Correo;
+                string query = "INSERT INTO Clientes (Nombre, Apellido, DNI, Telefono, Correo) VALUES (@Nombre, @Apellido, @DNI, @Telefono, @Correo)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                    command.Parameters.AddWithValue("@Apellido", cliente.Apellido);
+                    command.Parameters.AddWithValue("@DNI", cliente.DNI);
+                    command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+                    command.Parameters.AddWithValue("@Correo", cliente.Correo);
+                    command.Parameters.AddWithValue("@IsDeleted", false);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
-        public void DeleteCliente(int id)
+        public List<Models.ClienteModel> GetAllClientes()
         {
-            var cliente = clientes.FirstOrDefault(c => c.Id == id);
-            if (cliente != null)
-            {
-                clientes.Remove(cliente);
-            }
-        }
+            List<Models.ClienteModel> clientes = new List<Models.ClienteModel>();
 
-        public List<ClienteModel> GetAllClientes()
-        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Clientes WHERE IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Models.ClienteModel cliente = new Models.ClienteModel();
+                            cliente.ClienteId = reader["ClienteId"].ToString();
+                            cliente.Nombre = reader["Nombre"].ToString();
+                            cliente.Apellido = reader["Apellido"].ToString();
+                            cliente.DNI = reader["DNI"].ToString();
+                            cliente.Telefono = reader["Telefono"].ToString();
+                            cliente.Correo = reader["Correo"].ToString();
+                            cliente.isDelete = (bool)reader["IsDeleted"];
+                            clientes.Add(cliente);
+                        }
+                    }
+                }
+            }
+
             return clientes;
         }
+
+        public ClienteModel GetClienteByDNI(string dni)
+        {
+            ClienteModel cliente = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Clientes WHERE DNI = @DNI AND IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@DNI", dni);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            cliente = new ClienteModel
+                            {
+                                ClienteId = reader["ClienteId"].ToString(),
+                                Nombre = reader["Nombre"].ToString(),
+                                Apellido = reader["Apellido"].ToString(),
+                                DNI = reader["DNI"].ToString(),
+                                Telefono = reader["Telefono"].ToString(),
+                                Correo = reader["Correo"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return cliente;
+        }
+
+
+        public bool EliminarCliente(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Clientes SET IsDeleted = 1 WHERE ClienteId = @ClienteId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClienteId", id);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        public bool ActualizarCliente(Models.ClienteModel cliente)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Clientes SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Telefono = @Telefono, Correo = @Correo WHERE ClienteId = @ClienteId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                    command.Parameters.AddWithValue("@Apellido", cliente.Apellido);
+                    command.Parameters.AddWithValue("@DNI", cliente.DNI);
+                    command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+                    command.Parameters.AddWithValue("@Correo", cliente.Correo);
+                    command.Parameters.AddWithValue("@ClienteId", cliente.ClienteId);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+
+
     }
+
+
 }
