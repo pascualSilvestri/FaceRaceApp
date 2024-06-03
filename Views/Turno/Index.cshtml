@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-
+}
 
 <table class="table table-striped">
     <thead>
@@ -43,22 +43,48 @@
     <tbody>
         @foreach (var turno in Model)
         {
-
             <tr>
-                 <td>@turno.TurnoId</td>
+                <td>@turno.TurnoId</td>
                 <td>@turno.Nombre</td>
                 <td>@turno.Apellido</td>
                 <td>@turno.Dia/@turno.Mes/@DateTime.Now.Year</td>
                 <td>@turno.Hora</td>
                 <td>
-                    @Html.ActionLink("Modificar", "ModificarTurno", new { turnoId = turno.TurnoId }, new { @class = "btn btn-primary btn-sm" })
-                    <!-- Botón para eliminar -->
+                    <button type="button" class="btn btn-primary btn-sm" onclick="showModificarModal('@turno.TurnoId', '@turno.Dia/@turno.Mes/@DateTime.Now.Year', '@turno.Hora')">Modificar</button>
                     <button type="button" class="btn btn-danger btn-sm" onclick="showEliminarModal('@turno.TurnoId')">Eliminar</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<!-- Modal para modificar turno -->
+<div class="modal fade" id="modificarModal" tabindex="-1" role="dialog" aria-labelledby="modificarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modificarModalLabel">Modificar Turno</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modalFecha">Fecha:</label>
+                    <input type="date" class="form-control" id="modalFecha">
+                </div>
+                <div class="form-group">
+                    <label for="modalHora">Hora:</label>
+                    <input type="time" class="form-control" id="modalHora">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="guardarCambios">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal para confirmar eliminación de turno -->
 <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
@@ -83,21 +109,56 @@
 
 @section scripts {
     <script>
-        var turnoIdAEliminar = null;
+        var turnoIdAModificar = null;
 
+        function showModificarModal(turnoId, fecha, hora) {
+            turnoIdAModificar = turnoId;
+            $('#modalFecha').val(fecha);
+            $('#modalHora').val(hora);
+            $('#modificarModal').modal('show');
+        }
+
+        $('#guardarCambios').click(function () {
+            var nuevaFecha = $('#modalFecha').val();
+            var nuevaHora = $('#modalHora').val();
+
+            $.ajax({
+                url: '@Url.Action("ModificarTurno", "Turno")',
+                type: 'POST',
+                data: { turnoId: turnoIdAModificar, fecha: nuevaFecha, hora: nuevaHora },
+                success: function (response) {
+                    console.log('Response from server:', response);  // Log para ver la respuesta completa
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + (response.message || 'Ocurrió un error al modificar el turno.'));
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error in AJAX request:', textStatus, errorThrown);  // Log para ver detalles del error
+                    alert('Ocurrió un error en el servidor.');
+                }
+            });
+
+            $('#modificarModal').modal('hide');
+        });
+
+        $('.btn-secondary').click(function () {
+            $('#modificarModal').modal('hide');
+        });
+
+        // Función para abrir el modal de eliminar
         function showEliminarModal(turnoId) {
-            console.log(turnoId)
-            turnoIdAEliminar = turnoId;
+            turnoIdAModificar = turnoId;
             $('#eliminarModal').modal('show');
         }
 
         $('#confirmarEliminacion').click(function () {
-            if (turnoIdAEliminar !== null) {
-                console.log('turno id' +' '+ turnoIdAEliminar)
+            if (turnoIdAModificar !== null) {
                 $.ajax({
                     url: '@Url.Action("EliminarTurno", "Turno")',
                     type: 'POST',
-                    data: { turnoId: turnoIdAEliminar },
+                    data: { turnoId: turnoIdAModificar },
                     success: function (response) {
                         console.log('Response from server:', response);  // Log para ver la respuesta completa
                         if (response.success) {
@@ -115,7 +176,9 @@
 
             $('#eliminarModal').modal('hide');
         });
-    </script>
-}
 
+        $('.btn-secondary').click(function () {
+            $('#eliminarModal').modal('hide');
+        });
+    </script>
 }
