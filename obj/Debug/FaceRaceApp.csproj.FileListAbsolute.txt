@@ -169,3 +169,4 @@ D:\Escritorio\FaceRaceApp\obj\Debug\FaceRaceApp.csproj.CoreCompileInputs.cache
 D:\Escritorio\FaceRaceApp\obj\Debug\FaceRaceApp.csproj.CopyComplete
 D:\Escritorio\FaceRaceApp\obj\Debug\FaceRaceApp.dll
 D:\Escritorio\FaceRaceApp\obj\Debug\FaceRaceApp.pdb
+D:\Escritorio\FaceRaceApp\obj\Debug\FaceRaceApp.csproj.AssemblyReference.cache

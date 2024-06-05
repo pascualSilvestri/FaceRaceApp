@@ -25,7 +25,7 @@ namespace FaceRaceApp.DatasDB
                     command.Parameters.AddWithValue("@DNI", cliente.DNI);
                     command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
                     command.Parameters.AddWithValue("@Correo", cliente.Correo);
-                    command.Parameters.AddWithValue("@IsDeleted", false);
+                    //command.Parameters.AddWithValue("@IsDeleted", false);
 
                     connection.Open();
                     command.ExecuteNonQuery();
