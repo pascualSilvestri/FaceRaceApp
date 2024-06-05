@@ -2,6 +2,7 @@
 using FaceRaceApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace FaceRaceApp.Controllers
@@ -36,13 +37,33 @@ namespace FaceRaceApp.Controllers
         }
 
         // GET: Cliente/ListClient
+
+        // GET: Cliente/ListClient
         [HttpGet]
+        public ActionResult ListClient(string nombre = null, string dni = null)
+        {
+            ClienteData data = new ClienteData();
+            List<ClienteModel> list = data.GetAllClientes();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                list = list.Where(c => c.Nombre.IndexOf(nombre, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(dni))
+            {
+                list = list.Where(c => c.DNI.Contains(dni)).ToList();
+            }
+
+            return View(list);
+        }
+        /*[HttpGet]
         public ActionResult ListClient()
         {
             ClienteData data = new ClienteData();
             List<ClienteModel> list = data.GetAllClientes();
             return View(list);
-        }
+        }*/
 
         // POST: Cliente/Delete/{id}
         [HttpPost]
