@@ -109,6 +109,8 @@ namespace FaceRaceApp.Controllers
             return turnos;
         }
 
+        
+
         private int GetClienteId(string nombre, string apellido)
         {
             // Lógica para obtener el ClienteId a partir del nombre y apellido
@@ -345,49 +347,119 @@ namespace FaceRaceApp.Controllers
 
         // POST: Turno/ModificarTurno
         [HttpPost]
-        public ActionResult ModificarTurno(TurnoViewModel turno)
+        public ActionResult ModificarTurno(int turnoId, string fecha, string hora)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Actualizar el turno en la base de datos
-                bool resultado = ActualizarTurno(turno);
+                DateTime nuevaFecha = DateTime.ParseExact(fecha, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);  // Convertir la fecha de string a DateTime
+                TimeSpan nuevaHora = TimeSpan.Parse(hora);    // Convertir la hora de string a TimeSpan
 
-                if (resultado)
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    // Manejar el error
-                    return View(turno);
+                    string query = @"UPDATE Turnos 
+                             SET Fecha = @Fecha, Hora = @Hora
+                             WHERE TurnoId = @TurnoId";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Fecha", nuevaFecha);
+                        command.Parameters.AddWithValue("@Hora", nuevaHora);
+                        command.Parameters.AddWithValue("@TurnoId", turnoId);
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = "No se encontró el turno para modificar." });
+                        }
+                    }
                 }
             }
-
-            return View(turno);
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error al modificar turno: " + ex.Message);
+                return Json(new { success = false, message = ex.Message });
+            }
         }
+
 
 
         private TurnoViewModel GetTurnoById(int id)
         {
-            // Implementar la lógica para obtener los datos del turno por su ID
+            // Implementa la lógica para obtener los datos del turno por su ID
             // y llenar un objeto TurnoViewModel con esos datos
-            return new TurnoViewModel
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                TurnoId = id,
-                ClienteId = 1,
-                Nombre = "Nombre de Prueba",
-                Apellido = "Apellido de Prueba",
-                Mes = 6,
-                Dia = 15,
-                Hora = "10:00"
-            };
+                string query = @"SELECT t.TurnoId, c.Nombre, c.Apellido, t.Fecha, t.Hora
+                         FROM Turnos t
+                         INNER JOIN Clientes c ON t.ClienteId = c.ClienteId
+                         WHERE t.TurnoId = @TurnoId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@TurnoId", id);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new TurnoViewModel
+                            {
+                                TurnoId = reader.GetInt32(0),
+                                ClienteId = GetClienteId(reader.GetString(1), reader.GetString(2)),
+                                Nombre = reader.GetString(1),
+                                Apellido = reader.GetString(2),
+                                Mes = reader.GetDateTime(3).Month,
+                                Dia = reader.GetDateTime(3).Day,
+                                Hora = reader.GetTimeSpan(4).ToString(@"hh\:mm")
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
 
         private bool ActualizarTurno(TurnoViewModel turno)
         {
-            // Implementar la lógica para actualizar el turno en la base de datos
-            return true;
+            try
+            {
+                DateTime fecha = new DateTime(DateTime.Now.Year, turno.Mes, turno.Dia);
+                TimeSpan horaTurno = TimeSpan.Parse(turno.Hora);
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = @"UPDATE Turnos 
+                             SET Fecha = @Fecha, Hora = @Hora
+                             WHERE TurnoId = @TurnoId";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Fecha", fecha);
+                        command.Parameters.AddWithValue("@Hora", horaTurno);
+                        command.Parameters.AddWithValue("@TurnoId", turno.TurnoId);
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error al actualizar turno: " + ex.Message);
+                return false;
+            }
         }
+
 
 
 

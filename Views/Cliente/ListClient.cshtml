@@ -1,110 +1,124 @@
 ﻿@model List<FaceRaceApp.Models.ClienteModel>
 
-@{
-    ViewBag.Title = "ListClient";
-}
+    @{
+        ViewBag.Title = "ListClient";
+    }
 
-<h2>ListClient</h2>
+    <h2>ListClient</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>DNI</th>
-            <th>Teléfono</th>
-            <th>Correo</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cliente in Model)
-        {
+    <div>
+        <form method="get" action="@Url.Action("ListClient")" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="nombre" class="mr-2">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="@Request.QueryString["nombre"]" />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="dni" class="mr-2">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" value="@Request.QueryString["dni"]" />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+        </form>
+    </div>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>@cliente.Nombre</td>
-                <td>@cliente.Apellido</td>
-                <td>@cliente.DNI</td>
-                <td>@cliente.Telefono</td>
-                <td>@cliente.Correo</td>
-                <td>
-                    <!-- Botón para modificar -->
-                    <button class="btn btn-primary" onclick="showModificarModal('@cliente.Nombre','@cliente.Apellido','@cliente.DNI','@cliente.Telefono','@cliente.Correo', '@cliente.ClienteId')">Modificar</button>
-
-                    <!-- Botón para eliminar -->
-                    <button class="btn btn-danger" onclick="showEliminarModal('@cliente.ClienteId')">Eliminar</button>
-                </td>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellido</td>
+                    <td>@cliente.DNI</td>
+                    <td>@cliente.Telefono</td>
+                    <td>@cliente.Correo</td>
+                    <td>
+                        <!-- Botón para modificar -->
+                        <button class="btn btn-primary" onclick="showModificarModal('@cliente.Nombre','@cliente.Apellido','@cliente.DNI','@cliente.Telefono','@cliente.Correo', '@cliente.ClienteId')">Modificar</button>
 
-<!-- Modal para modificar -->
-<div class="modal" id="modificarModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Encabezado del modal -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modificar Cliente</h4>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
+                        <!-- Botón para eliminar -->
+                        <button class="btn btn-danger" onclick="showEliminarModal('@cliente.ClienteId')">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-            <!-- Contenido del modal -->
-            <div class="modal-body">
-                <!-- Formulario para modificar cliente -->
-                @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post))
-                {
-                    <input type="hidden" id="ClienteId" name="ClienteId" />
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" />
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" />
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido">DNI:</label>
-                        <input type="text" class="form-control" id="DNI" name="DNI" />
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido">Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" />
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido">Correo:</label>
-                        <input type="text" class="form-control" id="correo" name="correo" />
-                    </div>
-                    <!-- Agrega aquí los campos restantes -->
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                }
+    <!-- Modal para modificar -->
+    <div class="modal" id="modificarModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Encabezado del modal -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modificar Cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Contenido del modal -->
+                <div class="modal-body">
+                    <!-- Formulario para modificar cliente -->
+                    @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post))
+                    {
+                        <input type="hidden" id="ClienteId" name="ClienteId" />
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">DNI:</label>
+                            <input type="text" class="form-control" id="DNI" name="DNI" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Teléfono:</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Correo:</label>
+                            <input type="text" class="form-control" id="correo" name="correo" />
+                        </div>
+                        <!-- Agrega aquí los campos restantes -->
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal para confirmar eliminación de cliente -->
-<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eliminarModalLabel">Eliminar Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar este cliente?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirmarEliminacion">Confirmar</button>
+    <!-- Modal para confirmar eliminación de cliente -->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este cliente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmarEliminacion">Confirmar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@section scripts {
-    <script>
+    @section scripts {
+        <script>
         var clienteIdAEliminar = null;
 
         function showModificarModal(nombre, apellido, dni, telefono, correo, clienteId) {
@@ -130,6 +144,7 @@
                     data: { clienteId: clienteIdAEliminar },
                     success: function (response) {
                         if (response.success) {
+                            alert('Cliente modificado Exitosamente');
                             location.reload();
                         } else {
                             alert('Error: ' + (response.message || 'Ocurrió un error al eliminar el cliente.'));
@@ -146,5 +161,5 @@
         $('.btn-secondary').click(function () {
             $('#eliminarModal').modal('hide');
         });
-    </script>
-}
+        </script>
+    }

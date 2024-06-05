@@ -185,7 +185,6 @@
     <Content Include="Views\Turno\Index.cshtml" />
     <Content Include="Views\Turno\CreateTurno.cshtml" />
     <Content Include="Views\Turno\TurnoToday.cshtml" />
-    <Content Include="Views\Turno\ModificarTurno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
